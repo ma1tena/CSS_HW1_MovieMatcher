@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# ML-артефакти та сирі дані (великі файли, не в git)
+backend/data/raw/*
+!backend/data/raw/.gitkeep
+backend/ml/*.pkl
+backend/ml/*.parquet
+
+# Node / frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+
+# Env
+.env
+.env.local
+
+# OS / IDE
+.DS_Store
+.vscode/
+.idea/
