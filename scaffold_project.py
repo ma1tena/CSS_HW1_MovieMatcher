@@ -1,20 +1,21 @@
 """
 scaffold_project.py
 
-Створює повну структуру папок і базові файли для проєкту
-"Movie Vector Matcher" (backend + frontend + docs).
+Creates the full folder structure and base files for the
+"Movie Vector Matcher" project (backend + frontend + docs).
 
-Запуск (з кореня твого репозиторію, тобто з папки, яку ти вже
-підключила до GitHub):
+Usage (run from the root of your repo, i.e. the folder
+already connected to GitHub):
 
     python scaffold_project.py
 
-Скрипт нічого не перезаписує: якщо файл/папка вже існує — пропускає її.
+The script never overwrites existing files/folders: if something
+already exists, it is skipped.
 """
 
 import os
 
-# ---- Структура папок ----------------------------------------------------
+# ---- Folder structure ---------------------------------------------------
 DIRS = [
     "backend/app",
     "backend/ml",
@@ -25,22 +26,22 @@ DIRS = [
     "docs/screenshots",
 ]
 
-# ---- Файли-заглушки з базовим контентом ---------------------------------
+# ---- Placeholder files with base content --------------------------------
 FILES = {
     "README.md": """# Movie Vector Matcher
 
-Інтерактивний вебдодаток-рекомендатель фільмів на основі датасету IMDb.
-Користувач проходить короткий квіз (настрій, динаміка, тривалість, епоха,
-якірний фільм), бекенд формує User Vector, знаходить кластер через KMeans
-і повертає 5 найближчих фільмів через cosine similarity.
+Interactive movie-recommendation web app based on the IMDb dataset.
+The user goes through a short quiz (mood, pace, runtime, era, anchor
+movie), the backend builds a User Vector, finds the user's cluster
+via KMeans, and returns the 5 closest movies via cosine similarity.
 
-## Структура проєкту
+## Project structure
 
-- `backend/` — FastAPI + ML (навчання моделі, inference, API)
-- `frontend/` — React + Vite + Tailwind CSS (квіз + сторінка результатів)
-- `docs/` — скріншоти, нотатки, допоміжна документація
+- `backend/` — FastAPI + ML (model training, inference, API)
+- `frontend/` — React + Vite + Tailwind CSS (quiz + results page)
+- `docs/` — screenshots, notes, supporting documentation
 
-## Запуск бекенду
+## Running the backend
 
 ```bash
 cd backend
@@ -49,7 +50,7 @@ python ml/train_model.py --basics data/raw/title.basics.tsv.gz --ratings data/ra
 uvicorn app.main:app --reload
 ```
 
-## Запуск фронтенду
+## Running the frontend
 
 ```bash
 cd frontend
@@ -57,12 +58,12 @@ npm install
 npm run dev
 ```
 
-## Деплой
+## Deployment
 
 - Backend -> Render (`backend/Procfile`, `backend/requirements.txt`)
 - Frontend -> Vercel (`frontend/vercel.json`)
 
-## Статус розробки (майлстони)
+## Milestone status
 
 - [x] Milestone 1 — Data Prep & Training Script
 - [ ] Milestone 2 — Backend API (FastAPI + ML Inference)
@@ -76,7 +77,7 @@ __pycache__/
 .venv/
 venv/
 
-# ML-артефакти та сирі дані (великі файли, не в git)
+# ML artifacts and raw data (large files, not in git)
 backend/data/raw/*
 !backend/data/raw/.gitkeep
 backend/ml/*.pkl
@@ -128,7 +129,7 @@ def make_files():
         if folder:
             os.makedirs(folder, exist_ok=True)
         if os.path.exists(path):
-            print(f"[skip] {path} (вже існує)")
+            print(f"[skip] {path} (already exists)")
             continue
         with open(path, "w", encoding="utf-8") as f:
             f.write(content)
@@ -136,7 +137,7 @@ def make_files():
 
 
 if __name__ == "__main__":
-    print("Створення структури проєкту Movie Vector Matcher...\n")
+    print("Creating Movie Vector Matcher project structure...\n")
     make_dirs()
     make_files()
-    print("\nГотово! Структуру створено в поточній директорії.")
+    print("\nDone! Structure created in the current directory.")
