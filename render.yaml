@@ -1,0 +1,24 @@
+# render.yaml
+# Infra-as-code config for Render (https://render.com/docs/blueprint-spec).
+# Place this file at the REPO ROOT (not inside backend/). On Render, choose
+# "New +" -> "Blueprint" and point it at this repo; it will read this file
+# automatically instead of asking you to configure everything by hand.
+
+services:
+  - type: web
+    name: movie-vector-matcher-api
+    runtime: python
+    rootDir: backend
+    plan: free
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "uvicorn app.main:app --host 0.0.0.0 --port $PORT"
+    envVars:
+      # Must match the Python version you trained model.pkl with locally
+      # (check with `python3 --version`) — otherwise joblib/pickle may
+      # fail to load the model correctly on Render.
+      - key: PYTHON_VERSION
+        value: 3.14.3
+      # Set this to your Vercel URL once the frontend is deployed, e.g.:
+      # https://movie-vector-matcher.vercel.app
+      - key: CORS_ORIGINS
+        value: "*"

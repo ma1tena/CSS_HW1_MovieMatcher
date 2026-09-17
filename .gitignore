@@ -3,12 +3,18 @@ __pycache__/
 *.pyc
 .venv/
 venv/
+backend/venv/
 
-# ML-артефакти та сирі дані (великі файли, не в git)
+# Raw IMDb data (large, not needed at runtime — never commit this)
 backend/data/raw/*
 !backend/data/raw/.gitkeep
-backend/ml/*.pkl
-backend/ml/*.parquet
+
+# NOTE: backend/ml/model.pkl and backend/ml/movies_cleaned.parquet are
+# INTENTIONALLY NOT ignored anymore. Render's build step does not re-run
+# train_model.py (that would require uploading multi-GB raw IMDb files
+# on every deploy), so the trained model + cleaned dataset must be
+# committed to the repo for the deployed backend to load them.
+# If you retrain locally, just commit the updated files.
 
 # Node / frontend
 frontend/node_modules/
