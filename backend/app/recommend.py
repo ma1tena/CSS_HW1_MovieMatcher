@@ -17,15 +17,16 @@ MODEL_PATH = os.getenv("MODEL_PATH", "ml/model.pkl")
 DATA_PATH = os.getenv("DATA_PATH", "ml/movies_cleaned.parquet")
 
 # The 5 anchor movies offered in the quiz -> their IMDb tconst.
-# NOTE: verify these tconst values exist in your movies_cleaned.parquet
-# (they should, since all 5 are high-vote-count titles), and swap them
-# if your MIN_VOTES / MIN_YEAR filtering in train_model.py excluded any.
+# Must match ANCHOR_MOVIES in frontend/src/quizData.js exactly.
+# Chosen to be very high-vote-count titles, one per distinct genre,
+# so they reliably survive the MIN_VOTES / MIN_YEAR filtering in
+# train_model.py regardless of dataset snapshot date.
 ANCHOR_MOVIES = {
-    "Interstellar": "tt0816692",
-    "The Dark Knight": "tt0468569",
-    "La La Land": "tt3783958",
-    "John Wick": "tt2911666",
-    "How to Lose a Guy in 10 Days": "tt0309530",
+    "The Dark Knight": "tt0468569",  # Action / Crime / Thriller
+    "Fight Club": "tt0137523",  # Drama
+    "Superbad": "tt0829482",  # Comedy
+    "Interstellar": "tt0816692",  # Sci-Fi / Adventure
+    "Titanic": "tt0120338",  # Romance / Drama
 }
 
 ERA_YEAR_MAP = {"before2000": 1990, "2000-2015": 2008, "2016+": 2021}
